@@ -66,7 +66,7 @@ function App() {
       <Navbar cart={cart} />
       <div className="container">
         <Routes>
-          <Route path="/" element={<Home />}></Route>
+          <Route path="/SuperM-ReactJS/" element={<Home />}></Route>
           <Route path="/about" element={<About />}></Route>
           
           <Route
