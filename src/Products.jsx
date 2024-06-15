@@ -6,28 +6,27 @@ import Loader from "./Loader";
 export default function Products(props) {
   const [products, setProducts] = useState([]);
   const { get, loading } = useFetch(
-    "https://firestore.googleapis.com/v1/projects/food-app-34ce2/databases/(default)/documents/SuperM"
+    "https://raw.githubusercontent.com/Gorky1985/my-portfolio/master/public/assets/hosting/superM/"
   );
 
   useEffect(() => {
-    get("/")
+    get("store-data.json")
       .then((data) => {
-        setProducts(data.documents);
+        setProducts(data);
       })
       .catch((error) => console.log("Could not load products", error));
   }, []);
 
-   return (
+  return (
     <div className="products-layout">
       <h1>Products</h1>
-      <p>Take a look at our products</p>
+      <p>Take a look at our gift examples</p>
       <div className="products-grid">
         {loading && <Loader />}
         {products.map((product) => {
-           
-           return (
+          return (
             <Product
-              key={product.fields.id.integerValue}
+              key={product.id}
               details={product}
               cart={props.cart}
               onProductAdd={props.onProductAdd}

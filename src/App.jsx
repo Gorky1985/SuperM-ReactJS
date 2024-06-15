@@ -28,19 +28,19 @@ function App() {
   }, [cart]);
 
   function handleProductDelete(id) {
-    const updatedCart = cart.filter((product) => product.id.integerValue !== id);
+    const updatedCart = cart.filter((product) => product.id !== id);
     setCart(updatedCart);
   }
 
   function handleProductAdd(newProduct) {
     // check if item exists
     const existingProduct = cart.find(
-      (product) => product.id.integerValue === newProduct.id.integerValue
+      (product) => product.id === newProduct.id
     );
     if (existingProduct) {
       // increase quantity
       const updatedCart = cart.map((product) => {
-        if (product.id.integerValue === newProduct.id.integerValue) {
+        if (product.id === newProduct.id) {
           return {
             ...product,
             quantity: product.quantity + 1,
@@ -68,7 +68,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/about" element={<About />}></Route>
-          
+
           <Route
             path="/products"
             element={

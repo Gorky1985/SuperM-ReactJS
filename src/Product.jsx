@@ -3,23 +3,23 @@ import Button from "./Button";
 
 export default function Product(props) {
   const { details } = props;
-  console.log(details)
-  
+  console.log(details);
+
   const productFromCart = props.cart.find(
-    (product) => product.id.integerValue === details.fields.id.integerValue
+    (product) => product.id === details.id
   );
   const quantity = productFromCart ? productFromCart.quantity : 0;
 
   return (
     <div className="product">
       <div className="product-image-container">
-        <Link to={`/products/${details.fields.id.integerValue}`}>
+        <Link to={`/products/${details.id}`}>
           <img
-            src={details.fields.image.stringValue}
-            width="100"
-            height="100"
+            src={details.image}
+            width="150"
+            height="150"
             className="product-image"
-            alt={details.fields.name.stringValue}
+            alt={details.name}
           />
         </Link>
         {quantity > 0 && (
@@ -29,23 +29,23 @@ export default function Product(props) {
         )}
       </div>
       <div className="product-info">
-        <h3>{details.fields.name.stringValue}</h3>
-        <p>{details.fields.description.stringValue}</p>
+        <h3>{details.name}</h3>
+        <p>{details.description}</p>
       </div>
       <div className="product-checkout">
         <div>
           {quantity > 0 && (
             <Button
               outline
-              onClick={() => props.onProductDelete(details.fields.id.integerValue)}
+              onClick={() => props.onProductDelete(details.id)}
               className="product-delete"
             >
               x
             </Button>
           )}
         </div>
-        <Button outline onClick={() => props.onProductAdd(details.fields)}>
-          ${details.fields.price?.integerValue ?? details.fields.price.doubleValue}
+        <Button outline onClick={() => props.onProductAdd(details)}>
+          ${details.price}
         </Button>
       </div>
     </div>

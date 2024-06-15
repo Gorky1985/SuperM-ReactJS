@@ -362,7 +362,7 @@ input:focus {
 }
 
 .product-image {
-  background-color: var(--neutral-5);
+  /* background-color: var(--neutral-5); */
   padding: 10px;
   border-radius: 20px;
   transition: transform 180ms ease-out;

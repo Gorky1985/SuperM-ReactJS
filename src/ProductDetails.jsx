@@ -4,29 +4,29 @@ import useFetch from "./useFetch";
 
 export default function ProductDetails() {
   const [product, setProduct] = useState({});
-  const { get } = useFetch("https://firestore.googleapis.com/v1/projects/food-app-34ce2/databases/(default)/documents/");
+  const { get } = useFetch(
+    "https://raw.githubusercontent.com/Gorky1985/my-portfolio/master/public/assets/hosting/superM/"
+  );
   const params = useParams();
 
-    useEffect(() => {
-    get(`id${params.id}`)
+  useEffect(() => {
+    get(`id${params.id}.json`)
       .then((data) => {
         setProduct(data);
       })
       .catch((error) => console.log("Could not load product details", error));
   }, []);
 
-const short = product.documents ? product.documents[0].fields : product.name
-
-    return (
+  return (
     <div className="product-details-layout">
       <div>
-        <h2>{product.documents ? short.name.stringValue : product.name}</h2>
+        <h2>{product.name}</h2>
         <img
-          src={product.documents ? short.image.stringValue : product.image}
-          width="125"
-          height="125"
+          src={product.image}
+          width="200"
+          height="200"
           className="product-details-image"
-          alt={product.documents ? short.name.stringValue : product.name}
+          alt={product.name}
         />
       </div>
       <div>

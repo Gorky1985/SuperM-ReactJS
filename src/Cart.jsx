@@ -3,19 +3,17 @@ import { loadStripe } from "@stripe/stripe-js";
 import Input from "./Input";
 import Button from "./Button";
 
-// TODO: Replace with your own publishable key
-const stripeLoadedPromise = loadStripe("pk_test_51OMI0tEuk9vquqr0P0GspL2l2r8gsWdXBr5iU0iIvp2rxRKFhMG1aH2k4KHkJgMWdrmGoWOTE3RTWJ0ElewAqADH00vVSA005I");
+const stripeLoadedPromise = loadStripe(
+  "pk_test_51OMI0tEuk9vquqr0P0GspL2l2r8gsWdXBr5iU0iIvp2rxRKFhMG1aH2k4KHkJgMWdrmGoWOTE3RTWJ0ElewAqADH00vVSA005I"
+);
 
 export default function Cart({ cart }) {
-
   console.log(cart);
 
-  const totalPrice = cart.reduce((total, product)=> {
-    if(product.price.integerValue){return total + product.price.integerValue * product.quantity} else {
-      return total + product.price.doubleValue * product.quantity
-    }
-    
-  }, 0)
+  const totalPrice = cart.reduce(
+    (total, product) => total + product.price * product.quantity,
+    0
+  );
 
   const [email, setEmail] = useState("");
 
@@ -23,7 +21,7 @@ export default function Cart({ cart }) {
     event.preventDefault();
 
     const lineItems = cart.map((product) => {
-      return { price: product.price_id.stringValue, quantity: product.quantity };
+      return { price: product.price_id, quantity: product.quantity };
     });
 
     stripeLoadedPromise.then((stripe) => {
@@ -69,20 +67,20 @@ export default function Cart({ cart }) {
               <tbody>
                 {cart.map((product) => {
                   return (
-                    <tr key={product.id.integerValue}>
+                    <tr key={product.id}>
                       <td>
                         <img
-                          src={product.image.stringValue}
+                          src={product.image}
                           width="30"
                           height="30"
                           alt=""
                         />{" "}
-                        {product.name.stringValue}
+                        {product.name}
                       </td>
-                      <td>${product.price?.integerValue ?? product.price.doubleValue}</td>
+                      <td>${product.price}</td>
                       <td>{product.quantity}</td>
                       <td>
-                        <strong>${product.price?.integerValue ?? product.price.doubleValue * product.quantity}</strong>
+                        <strong>${product.price * product.quantity}</strong>
                       </td>
                     </tr>
                   );
